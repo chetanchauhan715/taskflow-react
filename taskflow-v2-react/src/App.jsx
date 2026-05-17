@@ -34,7 +34,15 @@ function App() {
   }
 
   function toggleTask(id){
-    
+    setTasks( (prevTasks) =>
+  prevTasks.map((task)=>
+task.id === id 
+? {
+  ...task , completed : !task.completed
+} : task
+
+));
+  
   }
 
   
@@ -63,6 +71,7 @@ function App() {
         <TaskList
          tasks={tasks}
         deleteTask={deleteTask}
+        toggleTask={toggleTask}
         />
 
       </div>

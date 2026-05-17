@@ -15,7 +15,8 @@ function App() {
 
     const newTask = {
       id:Date.now(),
-      text:input
+      text:input ,
+      completed:false
     }
    
   
@@ -23,6 +24,16 @@ function App() {
     // console.log(tasks);
 
     setInput("");
+    
+  }
+
+  function deleteTask(id){
+    setTasks( (prevTasks)=> (
+      prevTasks.filter( (task) => task.id !== id)
+    ));
+  }
+
+  function toggleTask(id){
     
   }
 
@@ -49,7 +60,11 @@ function App() {
           <button type='submit'>Add</button>
         </form>
 
-        <TaskList tasks={tasks}/>
+        <TaskList
+         tasks={tasks}
+        deleteTask={deleteTask}
+        />
+
       </div>
     </>
   )

@@ -5,6 +5,8 @@ import TaskList from './components/TaskList/TaskList'
 function App() {
   const [input , setInput] = useState("");
   const [tasks , setTasks] = useState([]);
+  const [editId , setEditId] = useState(null);
+
 
   function addTask(event){
     event.preventDefault();
@@ -12,6 +14,20 @@ function App() {
       alert("Please enter valid task ")
       return;
     }
+
+    if(editId !== null){
+      setTasks( (prevTasks) =>
+    prevTasks.map( (task) =>
+  task.id === editId
+? {
+  ...task, text:input
+}
+:
+task)) ;
+setEditId(null);
+    } 
+
+    else {
 
     const newTask = {
       id:Date.now(),
@@ -26,6 +42,8 @@ function App() {
     setInput("");
     
   }
+}
+
 
   function deleteTask(id){
     setTasks( (prevTasks)=> (
@@ -44,6 +62,13 @@ task.id === id
 ));
   
   }
+
+  function editTask(task){
+    setInput(task.text);
+    setEditId(task.id);
+  }
+
+
 
   
 
@@ -65,18 +90,24 @@ task.id === id
             />
           
 
-          <button type='submit'>Add</button>
+          <button type='submit'>
+            {
+              editId !== null ? "save" : "add"
+            }
+          </button>
         </form>
 
         <TaskList
          tasks={tasks}
         deleteTask={deleteTask}
         toggleTask={toggleTask}
+        editTask={editTask}
         />
 
       </div>
     </>
   )
 }
+
 
 export default App

@@ -6,6 +6,7 @@ function App() {
   const [input , setInput] = useState("");
   const [tasks , setTasks] = useState([]);
   const [editId , setEditId] = useState(null);
+  const [search , setSearch] = useState("");
 
 
   function addTask(event){
@@ -25,6 +26,7 @@ function App() {
 :
 task)) ;
 setEditId(null);
+setInput("");
     } 
 
     else {
@@ -68,7 +70,10 @@ task.id === id
     setEditId(task.id);
   }
 
-
+// filtered task - seperate for search and filter (chunk of tasks used for ui ) without modifying original
+  const filteredTask = tasks.filter( (task)=> 
+    task.text.toLowerCase().includes(search.toLowerCase())
+  );
 
   
 
@@ -95,10 +100,17 @@ task.id === id
               editId !== null ? "save" : "add"
             }
           </button>
+
+          <input 
+          type="text" 
+          placeholder="search tasks.."
+          value={search}
+          onChange={ (e)=> setSearch(e.target.value)}
+          />
         </form>
 
         <TaskList
-         tasks={tasks}
+         tasks={filteredTask}
         deleteTask={deleteTask}
         toggleTask={toggleTask}
         editTask={editTask}

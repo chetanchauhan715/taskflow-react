@@ -10,9 +10,11 @@ function TaskItem({ task, deleteTask, toggleTask , editTask}) {
           />
   
           <p className={task.completed ? "completed" : ""}>
-            {task.text}
+            {task.text} - {task.priority}
           </p>
         </div>
+
+        
 
         <button onClick={ ()=> editTask(task)}>
           Edit

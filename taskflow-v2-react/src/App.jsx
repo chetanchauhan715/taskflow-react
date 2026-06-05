@@ -7,6 +7,7 @@ function App() {
   const [tasks , setTasks] = useState([]);
   const [editId , setEditId] = useState(null);
   const [search , setSearch] = useState("");
+  const [priority , setPriority] = useState("low");
 
 
   function addTask(event){
@@ -34,7 +35,8 @@ setInput("");
     const newTask = {
       id:Date.now(),
       text:input ,
-      completed:false
+      completed:false,
+      priority:priority
     }
    
   
@@ -42,6 +44,7 @@ setInput("");
     // console.log(tasks);
 
     setInput("");
+    setPriority("low");
     
   }
 }
@@ -75,7 +78,7 @@ task.id === id
     task.text.toLowerCase().includes(search.toLowerCase())
   );
 
-  
+  // form -------------------------
 
   return (
     <>
@@ -93,6 +96,16 @@ task.id === id
             placeholder="Enter Your Task Here .."
             onChange={ (e)=> setInput(e.target.value)}
             />
+
+            <select 
+            value={priority}
+            onChange={ (e)=> setPriority(e.target.value)}
+            >
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+
+            </select>
           
 
           <button type='submit'>

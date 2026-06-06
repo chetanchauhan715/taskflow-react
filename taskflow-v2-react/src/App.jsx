@@ -8,6 +8,7 @@ function App() {
   const [editId , setEditId] = useState(null);
   const [search , setSearch] = useState("");
   const [priority , setPriority] = useState("low");
+  const [status , setStatus] = useState("all");
 
 
   function addTask(event){
@@ -74,11 +75,43 @@ task.id === id
   }
 
 // filtered task - seperate for search and filter (chunk of tasks used for ui ) without modifying original
-  const filteredTask = tasks.filter( (task)=> 
-    task.text.toLowerCase().includes(search.toLowerCase())
-  );
+  // const filteredTask = tasks.filter( (task)=> 
+  //   task.text.toLowerCase().includes(search.toLowerCase())
+  // );
+  console.log(tasks);
+console.log(status);
+console.log(search);
+
+
+
+  const filteredTask = tasks.filter( (task) => { 
+
+    console.log("Current Task:", task);
+   
+    const matchesSearch = task.text.toLowerCase().includes(search.toLowerCase());
+
+    console.log("matchesSearch:", matchesSearch);
+
+    let matchesStatus;
+
+    if(status === "all"){
+      matchesStatus = true;
+    } else if (status === "completed"){
+      matchesStatus = task.completed === true ;
+    } else if(status === "pending"){
+      matchesStatus = task.completed === false;
+    }
+
+   
+    console.log("matchesStatus:", matchesStatus);
+
+
+    return matchesStatus && matchesSearch;
+
+  })
 
   // form -------------------------
+
 
   return (
     <>
@@ -120,6 +153,17 @@ task.id === id
           value={search}
           onChange={ (e)=> setSearch(e.target.value)}
           />
+
+          <select
+          value={status}
+          onChange={ (e)=> setStatus(e.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="completed">Completed</option>
+            <option value="pending">Pending</option>
+
+          </select>
+
         </form>
 
         <TaskList

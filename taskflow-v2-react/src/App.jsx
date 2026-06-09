@@ -4,7 +4,17 @@ import TaskList from './components/TaskList/TaskList'
 
 function App() {
   const [input , setInput] = useState("");
-  const [tasks , setTasks] = useState([]);
+
+  const [tasks , setTasks] = useState( () => {
+    const savedTasks = localStorage.getItem("tasks");
+
+    if(savedTasks){
+      return JSON.parse(savedTasks);
+    }
+
+    return [];
+  });
+  
   const [editId , setEditId] = useState(null);
   const [search , setSearch] = useState("");
   const [priority , setPriority] = useState("low");
@@ -178,7 +188,7 @@ priorityValue[b.priority ] - priorityValue[a.priority]
             <option value="pending">Pending</option>
 
           </select>
-/. q    QRTY789  VBHNJMKL; 
+
         </form>
 
         <TaskList

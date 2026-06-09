@@ -78,15 +78,17 @@ task.id === id
   // const filteredTask = tasks.filter( (task)=> 
   //   task.text.toLowerCase().includes(search.toLowerCase())
   // );
-  console.log(tasks);
-console.log(status);
-console.log(search);
+
+
+//   console.log(tasks);
+// console.log(status);
+// console.log(search);
 
 
 
   const filteredTask = tasks.filter( (task) => { 
 
-    console.log("Current Task:", task);
+    // console.log("Current Task:", task);
    
     const matchesSearch = task.text.toLowerCase().includes(search.toLowerCase());
 
@@ -103,12 +105,25 @@ console.log(search);
     }
 
    
-    console.log("matchesStatus:", matchesStatus);
+    // console.log("matchesStatus:", matchesStatus);
 
 
     return matchesStatus && matchesSearch;
 
   })
+
+
+  const priorityValue = {
+    low:1,
+    medium:2,
+    high:3
+  } ;
+
+  const sortedTasks = [...filteredTask];
+
+  sortedTasks.sort( (a, b) => 
+priorityValue[b.priority ] - priorityValue[a.priority]
+);
 
   // form -------------------------
 
@@ -163,11 +178,11 @@ console.log(search);
             <option value="pending">Pending</option>
 
           </select>
-
+/. q    QRTY789  VBHNJMKL; 
         </form>
 
         <TaskList
-         tasks={filteredTask}
+         tasks={sortedTasks}
         deleteTask={deleteTask}
         toggleTask={toggleTask}
         editTask={editTask}

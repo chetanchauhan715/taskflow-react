@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState , useEffect } from 'react'
 import './App.css';
 import TaskList from './components/TaskList/TaskList'
 
@@ -14,7 +14,14 @@ function App() {
 
     return [];
   });
-  
+
+  useEffect( () => {
+    localStorage.setItem(
+      "tasks", 
+      JSON.stringify(tasks)
+    ) ;
+  } , [tasks]);
+
   const [editId , setEditId] = useState(null);
   const [search , setSearch] = useState("");
   const [priority , setPriority] = useState("low");
